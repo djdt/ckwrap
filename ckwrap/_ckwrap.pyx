@@ -38,4 +38,10 @@ def ckcluster(double[:] x, double[:] y, int min_k, int max_k, str method, int cr
 
     cdef int k = np.count_nonzero(sizes)
 
-    return {"k": k, "cluster": clusters, "centers": centers[:k], "withinss": withinss[:k], "size": sizes[:k]}
+    return {
+        "k": k,
+        "cluster": np.array(clusters),
+        "center": np.array(centers[:k]),
+        "withinss": np.array(withinss[:k]),
+        "size": np.array(sizes[:k])
+    }
