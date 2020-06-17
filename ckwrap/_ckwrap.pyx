@@ -5,9 +5,10 @@ from libcpp.string cimport string
 from ckwrap cimport kmeans_1d_dp
 
 import numpy as np
+from ckwrap.result import CkwrapResult
 
 
-def ckcluster(double[:] x, double[:] y, int min_k, int max_k, str method, int criterion) -> dict:
+def ckcluster(double[:] x, double[:] y, int min_k, int max_k, str method, int criterion) -> CkwrapResult:
     x = np.ascontiguousarray(x, dtype=np.float64)
     y = np.ascontiguousarray(y, dtype=np.float64)
 
@@ -18,7 +19,7 @@ def ckcluster(double[:] x, double[:] y, int min_k, int max_k, str method, int cr
     cdef double [:] centers = np.empty(max_k, dtype=np.float64)
     cdef double [:] withinss = np.zeros(max_k, dtype=np.float64)
     cdef double [:] sizes = np.zeros(max_k, dtype=np.float64)
-    cdef double [:] BICs = np.empty(max_k - min_k + 1, dtype=np.float64)
+    cdef double [:] BIC = np.empty(max_k - min_k + 1, dtype=np.float64)
 
     cdef string cpp_method = method.encode("UTF-8")
 
@@ -30,7 +31,7 @@ def ckcluster(double[:] x, double[:] y, int min_k, int max_k, str method, int cr
             &centers[0],
             &withinss[0],
             &sizes[0],
-            &BICs[0],
+            &BIC[0],
             string(b"BIC"),
             cpp_method,
             <kmeans_1d_dp.DISSIMILARITY>criterion,
@@ -38,10 +39,12 @@ def ckcluster(double[:] x, double[:] y, int min_k, int max_k, str method, int cr
 
     cdef int k = np.count_nonzero(sizes)
 
-    return {
-        "k": k,
-        "cluster": np.array(clusters),
-        "center": np.array(centers[:k]),
-        "withinss": np.array(withinss[:k]),
-        "size": np.array(sizes[:k])
-    }
+    cdef double totss
+    if nx == ny and y.sum() != 0.0 and criterion != 2:
+        totss = np.sum(y * (x - np.sum(np.multiply(x, y)) / np.sum(y)) ** 2)
+    elif criterion == 2:
+        totss = np.sum((y - np.sum(y) / ny) ** 2)
+    else:
+        totss = np.sum((x - np.sum(x) / nx) ** 2)
+
+    return CkwrapResult(k, clusters, centers[:k], sizes[:k], withinss[:k], totss, BIC)
