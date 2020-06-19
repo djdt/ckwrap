@@ -22,12 +22,12 @@ ckwrap = Extension(
     sources=sources,
     language="c++",
     include_dirs=["Ckmeans.1d.dp/src", np.get_include()],
-    extra_compile_args=["-std=c++11"],
+    extra_compile_args=["-std=c++11", "-g0"],
 )
 
 setup(
     name="ckwrap",
-    version="0.1.2",
+    version="0.1.3",
     description="Python wrapper for Ckmeans.1d.dp, 4.3.2.",
     packages=["ckwrap"],
     ext_modules=cythonize(ckwrap),
