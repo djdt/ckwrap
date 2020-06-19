@@ -53,6 +53,17 @@ def ckmeans(
     weights: np.ndarray = None,
     method: str = "linear",
 ) -> CkwrapResult:
+    """
+    Returns the optimal k-means clustering result of 'x' for k in range 'k'.
+
+    Parameters:
+        x: Input array, must be one dimensional.
+        k: k or a range of k values to test.
+        weights: Array of weights for clustering, same shape as x.
+            Default is equal weighting.
+        method: Method for clustering, all methods return same result.
+            Options in order of speed: 'linear', 'loglinear', 'quadratic'.
+    """
     return _ckcluster(x, k, weights, method, L2_criteria)
 
 
@@ -62,6 +73,17 @@ def ckmedians(
     weights: np.ndarray = None,
     method: str = "linear",
 ) -> CkwrapResult:
+    """
+    Returns the optimal k-medians clustering result of 'x' for k in range 'k'.
+
+    Parameters:
+        x: Input array, must be one dimensional.
+        k: k or a range of k values to test.
+        weights: Array of weights for clustering, same shape as x.
+            Default is equal weighting.
+        method: Method for clustering, all methods return same result.
+            Options in order of speed: 'linear', 'loglinear', 'quadratic'.
+    """
     return _ckcluster(x, k, weights, method, L1_criteria)
 
 
@@ -69,9 +91,19 @@ def cksegs(
     y: np.ndarray,
     k: Union[int, Tuple[int, int]] = (1, 9),
     x: np.ndarray = None,
-    method: str = "linear",
+    method: str = "quadratic",
 ) -> CkwrapResult:
-    """Default for 'x' is range(1, len('y') + 1)."""
+    """
+    Returns the k-segs clustering result of 'y' within 'x' for k in range 'k'.
+
+    Parameters:
+        y: Input array, must be one dimensional.
+        k: k or a range of k values to test.
+        x: Input array, same shape as y.
+            Default is range(1, len('y') + 1).
+        method: Method for clustering, only 'quadratic' is guaranteed optimal.
+            Options in order of speed: 'linear', 'loglinear', 'quadratic'.
+    """
     if x is None:
         x = np.arange(1, y.size + 1)
     return _ckcluster(x, k, y, method, L2Y_criteria)
