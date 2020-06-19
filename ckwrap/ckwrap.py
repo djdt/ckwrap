@@ -66,9 +66,12 @@ def ckmedians(
 
 
 def cksegs(
-    x: np.ndarray,
     y: np.ndarray,
     k: Union[int, Tuple[int, int]] = (1, 9),
+    x: np.ndarray = None,
     method: str = "linear",
 ) -> CkwrapResult:
+    """Default for 'x' is range(1, len('y') + 1)."""
+    if x is None:
+        x = np.arange(1, y.size + 1)
     return _ckcluster(x, k, y, method, L2Y_criteria)
