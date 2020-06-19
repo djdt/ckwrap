@@ -8,7 +8,7 @@ class CkwrapResult(object):
         labels: np.ndarray,
         centers: np.ndarray,
         sizes: np.ndarray,
-        wintinss: np.ndarray,
+        withinss: np.ndarray,
         totss: float,
         BIC: np.ndarray,
     ):
@@ -16,10 +16,10 @@ class CkwrapResult(object):
         self.labels = np.array(labels)
         self.centers = np.array(centers)
         self.sizes = np.array(sizes)
-        self.wintinss = np.array(wintinss)
+        self.withinss = np.array(withinss)
         self.totss = totss
         self.BIC = BIC
 
     @property
     def betweenss(self) -> float:
-        return self.totss - np.sum(self.wintinss)
+        return self.totss - np.sum(self.withinss)

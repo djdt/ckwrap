@@ -40,7 +40,7 @@ def ckcluster(double[:] x, double[:] y, int min_k, int max_k, str method, int cr
     cdef int k = np.count_nonzero(sizes)
 
     cdef double totss
-    if nx == ny and y.sum() != 0.0 and criterion != 2:
+    if nx == ny and np.sum(y) != 0.0 and criterion != 2:
         totss = np.sum(y * (x - np.sum(np.multiply(x, y)) / np.sum(y)) ** 2)
     elif criterion == 2:
         totss = np.sum((y - np.sum(y) / ny) ** 2)

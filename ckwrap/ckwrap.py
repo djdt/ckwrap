@@ -5,9 +5,9 @@ from ckwrap.result import CkwrapResult
 
 from typing import Union, Tuple
 
-means_criteria = 0
-medians_criteria = 1
-segs_criteria = 2
+L1_criteria = 0
+L2_criteria = 1
+L2Y_criteria = 2
 
 
 def _ckcluster(
@@ -17,6 +17,7 @@ def _ckcluster(
     method: str,
     criteria: int,
 ) -> CkwrapResult:
+    x = np.ascontiguousarray(x, dtype=np.float64)
     if x.ndim > 1:
         raise ValueError("'x' must be 1-dimensional.")
 
@@ -31,7 +32,10 @@ def _ckcluster(
 
     if y is None:
         y = np.array([1.0], dtype=np.float64)
-    elif y.ndim > 1:
+    else:
+        y = np.ascontiguousarray(y, dtype=np.float64)
+
+    if y.ndim > 1:
         raise ValueError("'y' must be 1-dimensional.")
 
     if criteria == 2 and x.size != y.size:
@@ -49,7 +53,7 @@ def ckmeans(
     weights: np.ndarray = None,
     method: str = "linear",
 ) -> CkwrapResult:
-    return _ckcluster(x, k, weights, method, means_criteria)
+    return _ckcluster(x, k, weights, method, L2_criteria)
 
 
 def ckmedians(
@@ -58,7 +62,7 @@ def ckmedians(
     weights: np.ndarray = None,
     method: str = "linear",
 ) -> CkwrapResult:
-    return _ckcluster(x, k, weights, method, medians_criteria)
+    return _ckcluster(x, k, weights, method, L1_criteria)
 
 
 def cksegs(
@@ -67,4 +71,4 @@ def cksegs(
     k: Union[int, Tuple[int, int]] = (1, 9),
     method: str = "linear",
 ) -> CkwrapResult:
-    return _ckcluster(x, k, y, method, segs_criteria)
+    return _ckcluster(x, k, y, method, L2Y_criteria)
