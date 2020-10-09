@@ -27,8 +27,8 @@ ckwrap = Extension(
 
 setup(
     name="ckwrap",
-    version="0.1.3",
-    description="Python wrapper for Ckmeans.1d.dp, 4.3.2.",
+    version="0.1.4",
+    description="Python wrapper for Ckmeans.1d.dp, 4.3.3.",
     packages=["ckwrap"],
     ext_modules=cythonize(ckwrap),
     license="LGPL",
