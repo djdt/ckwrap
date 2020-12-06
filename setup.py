@@ -2,6 +2,9 @@ from Cython.Build import cythonize
 from setuptools import setup, Extension
 import numpy as np
 
+with open("README.md") as fp:
+    long_description = fp.read()
+
 
 sources = [
     "ckwrap/_ckwrap.pyx",
@@ -27,13 +30,15 @@ ckwrap = Extension(
 
 setup(
     name="ckwrap",
-    version="0.1.4",
+    version="0.1.5",
     description="Python wrapper for Ckmeans.1d.dp, 4.3.3.",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    author="djdt",
+    license="LGPL",
+    url="https://github.com/djdt/pewlib",
     packages=["ckwrap"],
     ext_modules=cythonize(ckwrap),
-    license="LGPL",
-    author="djdt",
     install_requires=["numpy", "Cython"],
     tests_require=["pytest", "scipy"],
-    test_suite="tests",
 )
