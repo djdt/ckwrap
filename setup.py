@@ -30,14 +30,15 @@ ckwrap = Extension(
 
 setup(
     name="ckwrap",
-    version="0.1.6",
+    version="0.1.7",
     description="Python wrapper for Ckmeans.1d.dp, 4.3.3.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="djdt",
     license="LGPL",
-    url="https://github.com/djdt/pewlib",
+    url="https://github.com/djdt/ckwrap",
     packages=["ckwrap"],
+    package_data={"ckwrap": ["*.pyx"]},
     ext_modules=cythonize(ckwrap),
     install_requires=["numpy", "Cython"],
     tests_require=["pytest", "scipy"],
