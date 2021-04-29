@@ -30,7 +30,7 @@ ckwrap = Extension(
 
 setup(
     name="ckwrap",
-    version="0.1.5",
+    version="0.1.6",
     description="Python wrapper for Ckmeans.1d.dp, 4.3.3.",
     long_description=long_description,
     long_description_content_type="text/markdown",
