@@ -1,0 +1,2 @@
+include Ckmeans.1d.dp/src/*.cpp
+include Ckmeans.1d.dp/src/*.h
