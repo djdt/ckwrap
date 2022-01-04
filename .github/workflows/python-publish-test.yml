@@ -7,7 +7,7 @@ jobs:
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
     env:
-      CIBW_SKIP: pp*
+      CIBW_BUILD: cp310-manylinux*
       CIBW_BEFORE_BUILD: pip install Cython numpy
     runs-on: ${{ matrix.os }}
     strategy:
