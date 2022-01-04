@@ -30,7 +30,7 @@ ckwrap = Extension(
 
 setup(
     name="ckwrap",
-    version="0.1.7",
+    version="0.1.8",
     description="Python wrapper for Ckmeans.1d.dp, 4.3.3.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -38,7 +38,7 @@ setup(
     license="LGPL",
     url="https://github.com/djdt/ckwrap",
     packages=["ckwrap"],
-    package_data={"ckwrap": ["*.pyx"]},
+    package_data={"ckwrap": ["*.pyx", "*.pdx"]},
     ext_modules=cythonize(ckwrap),
     install_requires=["numpy", "Cython"],
     tests_require=["pytest", "scipy"],
