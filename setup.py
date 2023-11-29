@@ -5,6 +5,7 @@ from setuptools.command.build_ext import build_ext as _build_ext
 
 class build_ext(_build_ext):
     def run(self):
+        # defer import
         import numpy as np
         self.include_dirs.append(np.get_include())
         super().run()
