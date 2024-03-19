@@ -16,3 +16,6 @@ dependencies = [
     "Cython"
 ]
 optional-dependencies = {"test" = ["pytest", "scipy"]}
+
+[tool.setuptools]
+packages = ["ckwrap"]
