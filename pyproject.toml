@@ -19,9 +19,6 @@ optional-dependencies = {
     "test": ["pytest", "scipy"]
 }
 
-[tool.cython]
-# Cython specific settings, if any
-
 [tool.setuptools]
 packages = ["ckwrap"]
 package_dir = {"" = "."}
