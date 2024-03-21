@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "wheel", "Cython", "numpy"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ckwrap"
+version = "1.2.1"
+dependencies = [
+    "numpy",
+    "Cython",
+]
+description = "Python wrapper for Ckmeans.1d.dp, 4.3.5."
+authors = [{name = "djdt"}]
+license = {file = "LICENSE"}
+readme = "README.md"
+
+[project.urls]
+Homepage = "https://github.com/djdt/ckwrap"
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "scipy",
+]
+
+[tool.setuptools]
+packages = ["ckwrap"]
