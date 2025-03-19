@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ckwrap"
-version = "1.2.2"
+version = "1.2.3"
 dependencies = [
     "numpy",
     "Cython",
@@ -25,6 +25,9 @@ test = [
 
 [tool.setuptools]
 packages = ["ckwrap"]
+
+[tool.setuptools.package-data]
+ckwrap = ["*.pxd"]
 
 [tool.cibuildwheel]
 skip = ["pp*", "cp36-*"]
